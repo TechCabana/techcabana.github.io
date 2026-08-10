@@ -443,7 +443,7 @@
                     <div class="stat-label">Cards published</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value">292</div>
+                    <div class="stat-value">421</div>
                     <div class="stat-label">Unit tests passing</div>
                 </div>
                 <div class="stat-cell">
@@ -592,7 +592,7 @@
 
                 <div class="write-up-section">
                     <h3>Testing &amp; Reliability</h3>
-                    <p>292 Vitest tests across 13 suites cover the search and filter logic, the card markup and its escaping, the Airtable-to-card mapping including the private-field guard, pagination, incremental image downloads, and the refusal to write bad data. The suite runs without a browser and without a network.</p>
+                    <p>421 Vitest tests across 18 suites cover the search and filter logic, the card markup and its escaping, the Airtable-to-card mapping including the private-field guard, pagination, incremental image downloads, and the refusal to write bad data. The suite runs without a browser and without a network.</p>
                     <p>The source tree is shaped by that requirement. Every piece of logic worth testing was pulled out of the DOM handlers and out of the network calls, which is why the filtering, the mapping and the enrichment layers are pure functions that take data and return data. One suite reads the stylesheets as text purely to enforce that no colour value is written outside the design token file; another guards the 59:86 card geometry against a fixed pixel height creeping back in.</p>
                     <p>A blocked row does not stop the run. Enrichment continues on error, so the sync, the commit and the deploy all still happen, and the job turns red at the end. Good data goes live and the problem stays visible.</p>
                 </div>
