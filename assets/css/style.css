@@ -948,8 +948,16 @@ section {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+}
+
+/* Below the full container width four columns get too narrow — drop to 2x2
+   rather than leaving an orphan card on its own row */
+@media (max-width: 1150px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .project-card {
@@ -981,6 +989,17 @@ section {
 .project-thumb-1 { background-image: url('../images/familytree.png'); }
 .project-thumb-2 { background-image: url('../images/word-of-the-day_logo.png'); }
 .project-thumb-3 { background-image: url('../images/multi_tool.jpg'); }
+
+/* Yu-Gi-Oh! thumb: three mirrored card arts laid out as a row */
+.project-thumb-4 {
+    background-image:
+        url('../images/yugioh/71625222.jpg'),
+        url('../images/yugioh/18654201.jpg'),
+        url('../images/yugioh/40640059.jpg');
+    background-size: 34% auto, 34% auto, 34% auto;
+    background-position: left center, center center, right center;
+    background-repeat: no-repeat;
+}
 
 .project-thumb-inner {
     position: absolute;
