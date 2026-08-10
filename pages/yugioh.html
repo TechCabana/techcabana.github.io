@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Card Collection — Ankhit Sharma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* ── Page-specific layout overrides ── */
+        body {
+            padding-top: 0;
+        }
+
+        .demo-page {
+            min-height: 100vh;
+            background: var(--bg);
+            padding: 56px 0 72px;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--body);
+            margin-bottom: 40px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .back-link svg {
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover svg {
+            transform: translateX(-3px);
+        }
+
+        /* Page header */
+        .demo-page-eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .demo-page-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: clamp(36px, 5vw, 56px);
+            letter-spacing: -0.03em;
+            color: var(--head);
+            line-height: 1.0;
+            margin-bottom: 40px;
+        }
+
+        /* Tags */
+        .demo-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .demo-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-border);
+            color: var(--accent);
+        }
+
+        /* External links */
+        .demo-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surf);
+            color: var(--body);
+            text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .demo-link:hover {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Write-up card */
+        .write-up-card {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 40px;
+            margin-bottom: 16px;
+        }
+
+        .write-up-heading {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: -0.02em;
+            color: var(--head);
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .write-up-section {
+            margin-bottom: 32px;
+        }
+
+        .write-up-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .write-up-section h3 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: -0.01em;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .write-up-section p {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--body);
+            margin: 0 0 14px;
+        }
+
+        .write-up-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .write-up-section code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--surf2);
+            border: 1px solid var(--border);
+            color: var(--head);
+        }
+
+        /* Stat strip */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-cell {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 24px;
+        }
+
+        .stat-value {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: -0.03em;
+            color: var(--head);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* Screenshot card — the shared labelled-figure treatment. Same rules as the
+           other deep-dive pages; only the content inside differs. */
+        .screenshot-card {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            margin: 16px 0;
+        }
+
+        .screenshot-card-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 18px;
+        }
+
+        .ygo-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--surf2);
+            transition: border-color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .ygo-card:hover {
+            border-color: var(--accent-border);
+            transform: translateY(-3px);
+        }
+
+        /* True Yu-Gi-Oh! card geometry — 59:86, never a fixed pixel height */
+        .ygo-card-art {
+            aspect-ratio: 59 / 86;
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            background: var(--surf2);
+        }
+
+        .ygo-card-meta {
+            padding: 12px 12px 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ygo-card-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--head);
+            line-height: 1.35;
+        }
+
+        .ygo-card-serial {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .ygo-card-stats {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--body);
+            margin-top: 8px;
+        }
+
+        /* Rarity is data, not decoration — the colour encodes the print run */
+        .ygo-rarity {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid;
+        }
+
+        .rarity-common   { color: #94a3b8; border-color: rgba(148, 163, 184, 0.3); background: rgba(148, 163, 184, 0.08); }
+        .rarity-super    { color: #818cf8; border-color: rgba(129, 140, 248, 0.3); background: rgba(129, 140, 248, 0.08); }
+        .rarity-ultimate { color: #fb923c; border-color: rgba(251, 146, 60, 0.3);  background: rgba(251, 146, 60, 0.08); }
+
+        .screenshot-caption {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* Pipeline diagram */
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .pipeline-step {
+            flex: 1 1 150px;
+            background: var(--surf2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 16px;
+        }
+
+        .pipeline-step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .pipeline-step-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--head);
+            margin-bottom: 6px;
+        }
+
+        .pipeline-step-desc {
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .pipeline-arrow {
+            align-self: center;
+            color: var(--muted);
+            flex: 0 0 auto;
+        }
+
+        /* Decision table */
+        .decision-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .decision-table th {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: left;
+            padding: 0 16px 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .decision-table td {
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--body);
+            padding: 16px 16px 16px 0;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .decision-table tr:last-child td {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .decision-table td:first-child {
+            color: var(--head);
+            font-weight: 500;
+            width: 34%;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        @media (max-width: 640px) {
+            /* The arrows only make sense while the pipeline is a row. Nothing here
+               may touch a shared class — the four deep-dive pages must match. */
+            .pipeline-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-page">
+        <div class="container">
+
+            <a class="back-link" href="../index.html#projects">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6H2M2 6L6 2M2 6L6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to Portfolio
+            </a>
+
+            <div class="demo-page-eyebrow">Project Deep Dive</div>
+            <h1 class="demo-page-title">Yu-Gi-Oh! Card Collection</h1>
+
+            <div class="demo-tags">
+                <span class="demo-tag">JavaScript ES2023</span>
+                <span class="demo-tag">Node 24</span>
+                <span class="demo-tag">Airtable API</span>
+                <span class="demo-tag">YGOPRODeck API</span>
+                <span class="demo-tag">GitHub Actions</span>
+                <span class="demo-tag">GitHub Pages</span>
+                <span class="demo-tag">Vitest</span>
+            </div>
+
+            <div class="demo-links">
+                <a class="demo-link" href="https://techcabana.github.io/YuGiOhCardCollection/" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Live Collection
+                </a>
+                <a class="demo-link" href="https://github.com/TechCabana/YuGiOhCardCollection" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Source Code
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-row">
+                <div class="stat-cell">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">Cards published</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">450+</div>
+                    <div class="stat-label">Unit tests passing</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Servers running</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">£0</div>
+                    <div class="stat-label">Hosting cost</div>
+                </div>
+            </div>
+
+            <!-- Write-up -->
+            <div class="write-up-card">
+                <div class="write-up-heading">About This Project</div>
+
+                <div class="write-up-section">
+                    <h3>Purpose &amp; Motivation</h3>
+                    <p>I've collected Yu-Gi-Oh! cards for years, and the collection had never lived anywhere better than a shoebox and a vague memory of what was already in it. I wanted a proper catalogue — something I could search on my phone while standing in a card shop, without paying for hosting or maintaining a server to do it.</p>
+                    <p>The design goal was that adding a card should mean typing one thing: the set code printed on the card, for example <code>SDJ-017</code>. Everything a card already knows about itself — its name, attack, defence, attribute, rarity, artwork — should be fetched rather than retyped. Logging a card takes seconds, and the site catches up on its own.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>The Constraint That Shaped Everything</h3>
+                    <p>The repository is public, and Airtable has no read-only public API key. Any token that reaches the browser grants read <em>and</em> write on the entire base to anyone who opens the page source. That single fact ruled out the obvious design — fetching from Airtable in client-side JavaScript — before a line of it was written.</p>
+                    <p>So the browser never talks to Airtable at all. A GitHub Action does, at build time, and commits a plain JSON file for the site to read. There is no credential anywhere in the shipped code, because there is nothing for a credential to authenticate against.</p>
+                </div>
+            </div>
+
+            <!-- Card showcase -->
+            <div class="screenshot-card">
+                <div class="screenshot-card-label">A slice of the collection</div>
+                <div class="card-grid">
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/40640059.jpg" alt="Kuriboh card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Kuriboh</div>
+                            <div class="ygo-card-serial">SYE-019</div>
+                            <div class="ygo-card-stats"><span>ATK 300</span><span>DEF 200</span><span>★1</span></div>
+                            <span class="ygo-rarity rarity-common">Common</span>
+                        </div>
+                    </div>
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/71625222.jpg" alt="Time Wizard card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Time Wizard</div>
+                            <div class="ygo-card-serial">SDJ-015</div>
+                            <div class="ygo-card-stats"><span>ATK 500</span><span>DEF 400</span><span>★2</span></div>
+                            <span class="ygo-rarity rarity-common">Common</span>
+                        </div>
+                    </div>
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/18654201.jpg" alt="Criosphinx card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Criosphinx</div>
+                            <div class="ygo-card-serial">TLM-EN013</div>
+                            <div class="ygo-card-stats"><span>ATK 1200</span><span>DEF 2400</span><span>★6</span></div>
+                            <span class="ygo-rarity rarity-ultimate">Ultimate</span>
+                        </div>
+                    </div>
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/93920745.jpg" alt="Penguin Soldier card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Penguin Soldier</div>
+                            <div class="ygo-card-serial">SDJ-022</div>
+                            <div class="ygo-card-stats"><span>ATK 750</span><span>DEF 500</span><span>★2</span></div>
+                            <span class="ygo-rarity rarity-super">Super</span>
+                        </div>
+                    </div>
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/88819587.jpg" alt="Baby Dragon card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Baby Dragon</div>
+                            <div class="ygo-card-serial">SDJ-003</div>
+                            <div class="ygo-card-stats"><span>ATK 1200</span><span>DEF 700</span><span>★3</span></div>
+                            <span class="ygo-rarity rarity-common">Common</span>
+                        </div>
+                    </div>
+
+                    <div class="ygo-card">
+                        <img class="ygo-card-art" src="../assets/images/yugioh/2460565.jpg" alt="Marauding Captain card artwork" loading="lazy">
+                        <div class="ygo-card-meta">
+                            <div class="ygo-card-name">Marauding Captain</div>
+                            <div class="ygo-card-serial">SD5-EN009</div>
+                            <div class="ygo-card-stats"><span>ATK 1200</span><span>DEF 400</span><span>★3</span></div>
+                            <span class="ygo-rarity rarity-common">Common</span>
+                        </div>
+                    </div>
+
+                </div>
+                <p class="screenshot-caption">Cards render at the true 59:86 print ratio, with artwork mirrored into the repository rather than hotlinked</p>
+            </div>
+
+            <!-- Pipeline -->
+            <div class="screenshot-card">
+                <div class="screenshot-card-label">The build-time data pipeline</div>
+                <div class="pipeline">
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">01</div>
+                        <div class="pipeline-step-title">Airtable</div>
+                        <div class="pipeline-step-desc">I type a set code on my phone. Quantity and condition stay private.</div>
+                    </div>
+
+                    <svg class="pipeline-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">02</div>
+                        <div class="pipeline-step-title">Enrich</div>
+                        <div class="pipeline-step-desc">A GitHub Action looks the code up on YGOPRODeck and writes the details back.</div>
+                    </div>
+
+                    <svg class="pipeline-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">03</div>
+                        <div class="pipeline-step-title">Sync &amp; mirror</div>
+                        <div class="pipeline-step-desc">The table becomes <code>cards.json</code>; missing artwork is downloaded once.</div>
+                    </div>
+
+                    <svg class="pipeline-arrow" width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+                    <div class="pipeline-step">
+                        <div class="pipeline-step-num">04</div>
+                        <div class="pipeline-step-title">Commit &amp; deploy</div>
+                        <div class="pipeline-step-desc">Data and images commit together, then Pages publishes the static site.</div>
+                    </div>
+
+                </div>
+                <p class="screenshot-caption">Manual trigger plus a daily sweep at 06:00 UTC — the browser only ever fetches a static JSON file</p>
+            </div>
+
+            <!-- Write-up continued -->
+            <div class="write-up-card">
+                <div class="write-up-section">
+                    <h3>Implementation &amp; Technical Considerations</h3>
+                    <p>The site itself is deliberately plain: hand-written HTML, CSS and ES modules, no framework and no build step. A hundred-odd cards on a page does not need a virtual DOM, and skipping the toolchain means nothing sits between the source and what actually ships.</p>
+                    <p>The interesting engineering is in the pipeline. Enrichment looks a card up by set code rather than by name, because a set code identifies a single printing — which is how a collection is actually kept — and because name lookups need an exact match that punctuation makes fragile. Serials are trimmed before lookup, after a pasted value carrying an invisible trailing newline URL-encoded to <code>%0A</code> and silently broke a search.</p>
+                    <p>Before the sync writes anything, it refuses results that are not an array, are empty, are missing required fields, or still contain a private field. Quantity, condition and set price live in Airtable and are stripped before publication, because the repository is public and those are inventory data. The run fails rather than publishing bad or private data. Card art is mirrored into the repository instead of hotlinked, at YGOPRODeck's request, and a single failed image is reported rather than thrown — that card falls back to a type-coloured block instead of taking the page down.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>Testing &amp; Reliability</h3>
+                    <p>Over 450 Vitest tests, one suite per module, cover the search and filter logic, the card markup and its escaping, the Airtable-to-card mapping including the private-field guard, pagination, incremental image downloads, and the refusal to write bad data. The suite runs without a browser and without a network.</p>
+                    <p>The source tree is shaped by that requirement. Every piece of logic worth testing was pulled out of the DOM handlers and out of the network calls, which is why the filtering, the mapping and the enrichment layers are pure functions that take data and return data. One suite reads the stylesheets as text purely to enforce that no colour value is written outside the design token file; another guards the 59:86 card geometry against a fixed pixel height creeping back in.</p>
+                    <p>A blocked row does not stop the run. Enrichment continues on error, so the sync, the commit and the deploy all still happen, and the job turns red at the end. Good data goes live and the problem stays visible.</p>
+                </div>
+            </div>
+
+            <!-- Decisions -->
+            <div class="write-up-card">
+                <div class="write-up-heading">Decisions Worth Explaining</div>
+                <div class="table-scroll">
+                    <table class="decision-table">
+                        <thead>
+                            <tr>
+                                <th>Decision</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fetch Airtable at build time, not in the browser</td>
+                                <td>Airtable has no read-only key. A token in client-side JavaScript on a public repository grants read and write on the whole base to anyone who views source.</td>
+                            </tr>
+                            <tr>
+                                <td>Key on set code, not card name</td>
+                                <td>A set code identifies one printing. Name lookup needs an exact match, and punctuation breaks it — "Blue Eyes White Dragon" without the hyphens returns nothing.</td>
+                            </tr>
+                            <tr>
+                                <td>Mirror card images into the repository</td>
+                                <td>YGOPRODeck asks for this rather than per-view hotlinking, and it keeps the page working when their host is slow or unreachable.</td>
+                            </tr>
+                            <tr>
+                                <td>Enrich in a GitHub Action, not Airtable scripting</td>
+                                <td>Airtable scripting needs a paid plan, and the code would live outside the repository with no tests, no review and no history.</td>
+                            </tr>
+                            <tr>
+                                <td>Deploy Pages from the same workflow</td>
+                                <td>GitHub deliberately blocks a push made with the Actions token from triggering further workflow runs, so the data commit would land and never publish.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Design -->
+            <div class="write-up-card">
+                <div class="write-up-section">
+                    <h3>Design Approach</h3>
+                    <p>The brief I set myself was a dark theme that reads hand-built rather than generated: flat near-black layered surfaces with hairline borders, depth from layering instead of glow, and one restrained interaction accent for focus and selection.</p>
+                    <p>The rule that does the most work is that colour carries meaning and never decoration. Card type maps to the real Yu-Gi-Oh! card-frame palette — Normal tan, Effect orange, Spell teal-green, Trap magenta, Ritual blue, Fusion purple — so the grid is scannable by colour alone. Every colour value lives in a single token file, and a test fails the build if one is written anywhere else. Motion is kept to 120–200ms for state changes, transform and opacity only, all of it wrapped in <code>prefers-reduced-motion</code>.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
