@@ -206,8 +206,9 @@
             margin-top: 8px;
         }
 
-        /* Showcase card — mirrors the collection site's own card treatment */
-        .showcase-card {
+        /* Screenshot card — the shared labelled-figure treatment. Same rules as the
+           other deep-dive pages; only the content inside differs. */
+        .screenshot-card {
             background: var(--surf);
             border: 1px solid var(--border);
             border-radius: 18px;
@@ -215,13 +216,13 @@
             margin: 16px 0;
         }
 
-        .showcase-card-label {
+        .screenshot-card-label {
             font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .card-grid {
@@ -298,12 +299,12 @@
         .rarity-super    { color: #818cf8; border-color: rgba(129, 140, 248, 0.3); background: rgba(129, 140, 248, 0.08); }
         .rarity-ultimate { color: #fb923c; border-color: rgba(251, 146, 60, 0.3);  background: rgba(251, 146, 60, 0.08); }
 
-        .showcase-caption {
+        .screenshot-caption {
             font-size: 12px;
             font-weight: 300;
             color: var(--muted);
             text-align: center;
-            margin-top: 18px;
+            margin-top: 12px;
             font-style: italic;
         }
 
@@ -394,11 +395,8 @@
         }
 
         @media (max-width: 640px) {
-            .write-up-card,
-            .showcase-card {
-                padding: 26px 22px;
-            }
-
+            /* The arrows only make sense while the pipeline is a row. Nothing here
+               may touch a shared class — the four deep-dive pages must match. */
             .pipeline-arrow {
                 display: none;
             }
@@ -476,8 +474,8 @@
             </div>
 
             <!-- Card showcase -->
-            <div class="showcase-card">
-                <div class="showcase-card-label">A slice of the collection</div>
+            <div class="screenshot-card">
+                <div class="screenshot-card-label">A slice of the collection</div>
                 <div class="card-grid">
 
                     <div class="ygo-card">
@@ -541,12 +539,12 @@
                     </div>
 
                 </div>
-                <p class="showcase-caption">Cards render at the true 59:86 print ratio, with artwork mirrored into the repository rather than hotlinked</p>
+                <p class="screenshot-caption">Cards render at the true 59:86 print ratio, with artwork mirrored into the repository rather than hotlinked</p>
             </div>
 
             <!-- Pipeline -->
-            <div class="showcase-card">
-                <div class="showcase-card-label">The build-time data pipeline</div>
+            <div class="screenshot-card">
+                <div class="screenshot-card-label">The build-time data pipeline</div>
                 <div class="pipeline">
 
                     <div class="pipeline-step">
@@ -580,7 +578,7 @@
                     </div>
 
                 </div>
-                <p class="showcase-caption">Manual trigger plus a daily sweep at 06:00 UTC — the browser only ever fetches a static JSON file</p>
+                <p class="screenshot-caption">Manual trigger plus a daily sweep at 06:00 UTC — the browser only ever fetches a static JSON file</p>
             </div>
 
             <!-- Write-up continued -->
