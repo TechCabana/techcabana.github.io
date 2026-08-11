@@ -16,13 +16,25 @@
     --surf:          #0d1520;
     --surf2:         #111d2e;
     --accent:        #06b6d4;
+    --accent-hover:  #22d3ee;
     --accent-dim:    rgba(6, 182, 212, 0.10);
     --accent-border: rgba(6, 182, 212, 0.22);
+    --accent-ring:   rgba(6, 182, 212, 0.08);
     --head:          #f0f9ff;
     --body:          #cbd5e1;
     --muted:         #475569;
+    --ink-dim:       rgba(255, 255, 255, 0.6);
+    --ink-faint:     rgba(255, 255, 255, 0.35);
     --border:        rgba(255, 255, 255, 0.06);
     --border-hover:  rgba(255, 255, 255, 0.12);
+    --tint:          rgba(255, 255, 255, 0.04);
+
+    /* Error state — the toast was the only thing using a red, and it built it inline */
+    --error:        #fca5a5;
+    --error-dim:    rgba(239, 68, 68, 0.15);
+    --error-border: rgba(239, 68, 68, 0.30);
+    --ok-dim:       rgba(6, 182, 212, 0.15);
+    --ok-border:    rgba(6, 182, 212, 0.30);
 
     /* Skill level colours */
     --expert:    #06b6d4;
@@ -161,7 +173,7 @@ section {
 .nav-links a {
     font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--ink-dim);
     letter-spacing: 0.03em;
     transition: color 0.2s ease;
     position: relative;
@@ -364,14 +376,7 @@ section {
     height: 5px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 6px var(--accent);
     flex-shrink: 0;
-    animation: status-pulse 2s ease-in-out infinite;
-}
-
-@keyframes status-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
 }
 
 .btn {
@@ -399,7 +404,7 @@ section {
 }
 
 .btn-primary:hover {
-    background: #22d3ee;
+    background: var(--accent-hover);
     transform: translateY(-1px);
 }
 
@@ -613,7 +618,7 @@ section {
 .tenure-pill {
     font-size: 12px;
     color: var(--body);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--tint);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 3px 10px;
@@ -644,8 +649,6 @@ section {
     height: 5px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 6px var(--accent);
-    animation: status-pulse 2s ease-in-out infinite;
 }
 
 .badge-promo {
@@ -849,9 +852,9 @@ section {
     flex-shrink: 0;
 }
 
-.expert-dot    { background: var(--expert);    box-shadow: 0 0 6px rgba(6, 182, 212, 0.5); }
-.proficient-dot{ background: var(--proficient); box-shadow: 0 0 6px rgba(129, 140, 248, 0.5); }
-.familiar-dot  { background: var(--familiar);  box-shadow: 0 0 6px rgba(251, 146, 60, 0.5); }
+.expert-dot    { background: var(--expert); }
+.proficient-dot{ background: var(--proficient); }
+.familiar-dot  { background: var(--familiar); }
 
 /* Bento grid */
 .skills-bento-grid {
@@ -912,7 +915,7 @@ section {
     font-size: 13px;
     font-weight: 400;
     color: var(--body);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--tint);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 4px 10px;
@@ -1022,7 +1025,7 @@ section {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--ink-faint);
     letter-spacing: 0.04em;
 }
 
@@ -1194,7 +1197,7 @@ section {
     font-size: 14px;
     font-weight: 400;
     color: var(--body);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--tint);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 6px 14px;
@@ -1282,7 +1285,7 @@ section {
 .form-field input:focus,
 .form-field textarea:focus {
     border-color: var(--accent-border);
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.08);
+    box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
 .btn-send {
@@ -1306,7 +1309,7 @@ section {
 }
 
 .btn-send:hover {
-    background: #22d3ee;
+    background: var(--accent-hover);
     transform: translateY(-1px);
 }
 
@@ -1421,7 +1424,7 @@ section {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--tint);
     border: 1px solid var(--border);
     color: var(--body);
     transition: all 0.2s ease;
@@ -1504,6 +1507,45 @@ section {
 }
 
 /* ═══════════════════════════════════════════════
+   TOAST
+   Styling lives here rather than in main.js, so the
+   colours resolve from the tokens like everything else.
+   ═══════════════════════════════════════════════ */
+.portfolio-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 360px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--head);
+    background: var(--ok-dim);
+    border: 1px solid var(--ok-border);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 3000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portfolio-toast.error {
+    color: var(--error);
+    background: var(--error-dim);
+    border-color: var(--error-border);
+}
+
+/* ═══════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════ */
 @media (max-width: 900px) {
@@ -1537,10 +1579,6 @@ section {
 
     .skills-bento-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr 1fr;
     }
 
     .education-grid {
