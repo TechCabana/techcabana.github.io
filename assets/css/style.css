@@ -1581,10 +1581,6 @@ section {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .projects-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
     .education-grid {
         grid-template-columns: 1fr;
     }
