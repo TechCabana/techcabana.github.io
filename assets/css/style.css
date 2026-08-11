@@ -46,7 +46,9 @@
     --promo-dim:    rgba(34, 197, 94, 0.10);
     --promo-border: rgba(34, 197, 94, 0.25);
 
-    /* Shadows */
+    /* Shadows — a deliberate three-step scale. Only --shadow-md has a consumer
+       today (the toast); sm and lg are kept so a new surface picks a step from
+       the scale rather than inventing a fourth value. */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1011,14 +1013,6 @@ section {
     display: flex;
     align-items: flex-end;
     padding: 14px;
-}
-
-.thumb-accent-line {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--line-color);
-    opacity: 0.8;
 }
 
 .project-num {
