@@ -101,40 +101,17 @@ function showToast(message, type = 'success') {
     const existing = document.querySelector('.portfolio-toast');
     if (existing) existing.remove();
 
+    // Appearance comes from .portfolio-toast in style.css; this only decides which
+    // variant to show and when it enters and leaves.
     const toast = document.createElement('div');
-    toast.className = 'portfolio-toast';
-    toast.style.cssText = `
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        padding: 14px 22px;
-        border-radius: 10px;
-        font-family: 'Inter', sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        color: ${type === 'error' ? '#fca5a5' : '#f0f9ff'};
-        background: ${type === 'error' ? 'rgba(239,68,68,0.15)' : 'rgba(6,182,212,0.15)'};
-        border: 1px solid ${type === 'error' ? 'rgba(239,68,68,0.3)' : 'rgba(6,182,212,0.3)'};
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-        z-index: 3000;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        backdrop-filter: blur(10px);
-        max-width: 360px;
-        line-height: 1.5;
-    `;
+    toast.className = type === 'error' ? 'portfolio-toast error' : 'portfolio-toast';
     toast.textContent = message;
     document.body.appendChild(toast);
 
-    requestAnimationFrame(() => {
-        toast.style.opacity  = '1';
-        toast.style.transform = 'translateY(0)';
-    });
+    requestAnimationFrame(() => toast.classList.add('visible'));
 
     setTimeout(() => {
-        toast.style.opacity  = '0';
-        toast.style.transform = 'translateY(10px)';
+        toast.classList.remove('visible');
         toast.addEventListener('transitionend', () => toast.remove());
     }, 4000);
 }
