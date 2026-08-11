@@ -334,6 +334,7 @@ There is no CI to catch a mistake, and a merge is a deploy. Run these and state 
 | Every referenced asset resolves | Resolve each `src` and `url()` added or changed against the filesystem — a 404 image is invisible in review and obvious on the live site |
 | Markup is balanced | Parse the changed HTML and confirm no unclosed or mismatched tags |
 | CSS is well-formed | Brace count balances; no colour value written outside the `:root` block |
+| Every `var()` resolves | Each `var(--token)` in the stylesheet names a token defined in `:root`, or one set inline in the markup — `--delay` is set per element and is the only legitimate exception. A dead rule painting an undefined token went unnoticed until a batch found it by accident |
 | The page actually renders | Serve the directory (`npx serve .` or `python -m http.server 8000`) and open it. `file://` is fine for these pages, but serve it anyway so behaviour matches production |
 | Responsive | Check at ≥1150px, ~1000px, ~800px and ~400px — the four states the breakpoints produce |
 | Reduced motion | Confirm new animation is inside a `prefers-reduced-motion` guard |
