@@ -34,7 +34,7 @@ few commits old — a stale briefing here causes real errors, not cosmetic drift
 
 ```
 index.html            782 lines   single-page site: nav + 7 sections + demo modal
-assets/css/style.css 1665 lines   all styling, tokenised colour, 2 breakpoints
+assets/css/style.css 1659 lines   all styling, tokenised colour, 2 breakpoints
 assets/js/main.js     206 lines   nav, scroll, filters, toast, contact form, demo modal
 pages/                 4 files    familytree, wordoftheday, utilitytool, yugioh
 assets/images/       9 + 6 files  project thumbnails and screenshots; yugioh/ card art
