@@ -153,15 +153,28 @@ if (contactForm) {
 // ── Demo Modal ────────────────────────────────
 const demoModal     = document.getElementById('demoModal');
 const demoIframe    = document.getElementById('demoIframe');
+const modalContent  = document.querySelector('.modal-content');
 const modalCloseBtn = document.querySelector('.modal-close-btn');
+const mainContent   = document.querySelector('main');
+
+// The element focus returns to on close - whichever project arrow opened the modal.
+let modalOpenerEl = null;
 
 document.querySelectorAll('.view-demo-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const src = this.getAttribute('data-demo-src');
         if (src && demoIframe && demoModal) {
+            modalOpenerEl = this;
             demoIframe.src = src;
             demoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Background is inert while the dialog is open - a keyboard or screen
+            // reader user can't tab or navigate into the page behind it.
+            navbar?.setAttribute('inert', '');
+            mainContent?.setAttribute('inert', '');
+
+            modalCloseBtn?.focus();
         }
     });
 });
@@ -171,6 +184,12 @@ function closeModal() {
     demoModal.classList.remove('active');
     document.body.style.overflow = '';
     setTimeout(() => { demoIframe.src = ''; }, 300);
+
+    navbar?.removeAttribute('inert');
+    mainContent?.removeAttribute('inert');
+
+    modalOpenerEl?.focus();
+    modalOpenerEl = null;
 }
 
 modalCloseBtn?.addEventListener('click', closeModal);
@@ -180,7 +199,30 @@ demoModal?.addEventListener('click', function(e) {
 });
 
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    if (!demoModal?.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+        closeModal();
+        return;
+    }
+
+    // Trap Tab/Shift+Tab inside the dialog - its only two focus stops are the
+    // close button and the iframe itself; what happens once focus is inside the
+    // iframe's own document is that document's business, not ours.
+    if (e.key === 'Tab' && modalContent) {
+        const focusable = modalContent.querySelectorAll('button, iframe, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last  = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
 });
 
 // ── Tab visibility optimisation ───────────────
