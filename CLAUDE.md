@@ -33,8 +33,8 @@ site. That single fact drives most of the workflow rules below.
 few commits old — a stale briefing here causes real errors, not cosmetic drift.
 
 ```
-index.html            782 lines   single-page site: nav + 7 sections + demo modal
-assets/css/style.css 1659 lines   all styling, tokenised colour, 2 breakpoints
+index.html            790 lines   single-page site: nav + 7 sections + demo modal
+assets/css/style.css 1691 lines   all styling, tokenised colour, 2 breakpoints
 assets/js/main.js     206 lines   nav, scroll, filters, toast, contact form, demo modal
 pages/                 4 files    familytree, wordoftheday, utilitytool, yugioh
 assets/images/       9 + 6 files  project thumbnails and screenshots; yugioh/ card art
@@ -66,8 +66,10 @@ Every project has two pieces:
 The deep-dive pages share a class vocabulary rather than a stylesheet section: `demo-page`,
 `back-link`, `demo-page-eyebrow`, `demo-page-title`, `demo-tag`, `write-up-card`,
 `write-up-section`, `screenshot-card`. Each page redeclares those rules in its own `<style>`
-block and links `../assets/css/style.css` for the tokens. **Copy an existing page as the
-starting point** — divergence between the four pages is a defect, not a style choice.
+block and links `../assets/css/style.css` for the tokens. The outer wrapper carrying the
+`demo-page` class is a `<main>` element, not a `<div>` — each page is its own document and
+needs its own main landmark. **Copy an existing page as the starting point** — divergence
+between the four pages is a defect, not a style choice.
 
 ### Design tokens
 
@@ -79,7 +81,7 @@ value anywhere else.
 | `--bg` | `#080d12` | page ground |
 | `--surf` / `--surf2` | `#0d1520` / `#111d2e` | layered surfaces |
 | `--accent` | `#06b6d4` | the single interaction accent |
-| `--head` / `--body` / `--muted` | `#f0f9ff` / `#cbd5e1` / `#475569` | type scale |
+| `--head` / `--body` / `--muted` | `#f0f9ff` / `#cbd5e1` / `#94a3b8` | type scale |
 | `--border` | `rgba(255,255,255,0.06)` | hairline separation |
 
 Type: **Bricolage Grotesque** for headings, **Inter** for body, **JetBrains Mono** for
