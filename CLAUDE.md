@@ -66,8 +66,10 @@ Every project has two pieces:
 The deep-dive pages share a class vocabulary rather than a stylesheet section: `demo-page`,
 `back-link`, `demo-page-eyebrow`, `demo-page-title`, `demo-tag`, `write-up-card`,
 `write-up-section`, `screenshot-card`. Each page redeclares those rules in its own `<style>`
-block and links `../assets/css/style.css` for the tokens. **Copy an existing page as the
-starting point** — divergence between the four pages is a defect, not a style choice.
+block and links `../assets/css/style.css` for the tokens. The outer wrapper carrying the
+`demo-page` class is a `<main>` element, not a `<div>` — each page is its own document and
+needs its own main landmark. **Copy an existing page as the starting point** — divergence
+between the four pages is a defect, not a style choice.
 
 ### Design tokens
 
