@@ -28,3 +28,18 @@ categories and filters by level, so the page reads quickly whether you want the 
 the detail. Four projects sit below it, and each one has its own deep-dive page — what it
 does, why it was built that way, and what it looks like — which opens in place rather than
 sending you somewhere else. Education and a contact form close the page.
+
+---
+
+## Credits
+
+- Typefaces — [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque),
+  [Inter](https://fonts.google.com/specimen/Inter) and
+  [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono), served by Google Fonts
+  under the SIL Open Font License.
+- [particles.js](https://github.com/VincentGarreau/particles.js) by Vincent Garreau, MIT.
+- [EmailJS](https://www.emailjs.com/) browser SDK, used under their terms of service.
+- Card artwork under `assets/images/yugioh/` comes from [YGOPRODeck](https://ygoprodeck.com/)
+  and is mirrored rather than hotlinked, at their request. *Yu-Gi-Oh!* and all card names and
+  artwork are trademarks of Konami; the project page is unaffiliated and carries no
+  endorsement.
