@@ -44,8 +44,9 @@ Sections in `index.html`, in order: `#home` (hero with particles canvas), `#abou
 `#experience`, `#skills`, `#projects`, `#education`, `#contact`, then the demo modal.
 
 **No CI, no tests, no LICENSE file, no `.gitignore` beyond what is listed here.** GitHub
-reports the licence as `NOASSERTION`. A Backlog card tracks the licence decision — until it
-is made, no licence is granted and the README says so.
+reports the licence as `NOASSERTION`. The licence question was decided 2026-08-15: leave the
+repository unlicensed (all rights reserved) rather than add MIT or GPL-3.0 — this is a personal
+portfolio nobody should be forking. The decision is recorded in the README's Licence section.
 
 Two branches survive on the remote from earlier work: `AddSkillsFiltering` and
 `ChangeInCSS`. Both are merged; neither is active.
