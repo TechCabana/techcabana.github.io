@@ -72,7 +72,7 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 48px;
+            margin-bottom: 24px;
         }
 
         .demo-tag {
@@ -83,6 +83,35 @@
             background: var(--accent-dim);
             border: 1px solid var(--accent-border);
             color: var(--accent);
+        }
+
+        /* External links */
+        .demo-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surf);
+            color: var(--body);
+            text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .demo-link:hover {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* Write-up card */
@@ -127,7 +156,87 @@
             font-weight: 300;
             line-height: 1.85;
             color: var(--body);
-            margin: 0;
+            margin: 0 0 14px;
+        }
+
+        .write-up-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stat strip */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-cell {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 24px;
+        }
+
+        .stat-value {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: -0.03em;
+            color: var(--head);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* Decision table */
+        .decision-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .decision-table th {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: left;
+            padding: 0 16px 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .decision-table td {
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--body);
+            padding: 16px 16px 16px 0;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .decision-table tr:last-child td {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .decision-table td:first-child {
+            color: var(--head);
+            font-weight: 500;
+            width: 34%;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
         }
 
         /* Screenshot card */
@@ -188,13 +297,45 @@
                 <span class="demo-tag">Cross-Platform</span>
             </div>
 
+            <div class="demo-links">
+                <a class="demo-link" href="https://github.com/TechCabana/UtilityTool" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Source Code
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-row">
+                <div class="stat-cell">
+                    <div class="stat-value">843</div>
+                    <div class="stat-label">Lines across main.py + 4 tabs</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Image output formats</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Batch jobs threaded off the UI</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Dependencies — PySide6 &amp; Pillow</div>
+                </div>
+            </div>
+
             <!-- Write-up -->
             <div class="write-up-card">
                 <div class="write-up-heading">About This Project</div>
 
                 <div class="write-up-section">
-                    <h3>Building a Desktop Tool That Actually Gets Used</h3>
-                    <p>This project started from a pretty basic frustration: I kept running into situations where I needed to batch process images or rename a bunch of files, and the options were either paid services or didn't quite do what I needed. So I built a cross-platform desktop app using PySide6 that handles both image manipulation and file management in one place. The goal was to create something simple enough that you don't need to read a manual, but powerful enough to handle real-world tasks like compressing dozens of photos for a website or renaming files with custom patterns. It's got a clean, dark-themed UI that's easy on the eyes, and everything's organized into tabs so you can quickly jump between working with images or files without losing your place.</p>
+                    <h3>Purpose &amp; Motivation</h3>
+                    <p>I kept needing to batch-compress a folder of photos or rename a pile of files, and the options were paid services or tools that didn't quite fit. So I built a cross-platform desktop app that handles both image and file work in one place, organised into tabs so switching between them doesn't lose your place.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>The Constraint That Shaped Everything</h3>
+                    <p>It had to run on someone else's machine with no Python installed, and it had to stay responsive while it worked through hundreds of files. Both come from the same decision: build with PyInstaller's <code>--onefile --windowed</code> mode into a standalone <code>.exe</code> or <code>.app</code>, and run every batch job on a <code>QThread</code> rather than the main thread — a window that freezes mid-batch looks broken even when it isn't.</p>
                 </div>
             </div>
 
@@ -213,16 +354,55 @@
             <!-- Write-up continued -->
             <div class="write-up-card">
                 <div class="write-up-section">
-                    <h3>Features That Actually Make Life Easier</h3>
-                    <p>On the image side, you can drag and drop photos and compress them, resize them (including specific passport photo sizes for India and the Netherlands), or convert between formats like JPEG, PNG, and WEBP. Everything runs with progress bars and estimated completion times, so you're not just staring at a frozen screen wondering if it's working. The file tools let you batch rename with all sorts of options—custom patterns, prefixes, suffixes, automatic numbering with padding, regex find-and-replace, and even date-based naming pulled from file modification times or the current date. You can also pick a custom destination folder if you want to keep your originals untouched. The best part? You can save presets for both image and file operations, so if you're doing the same type of processing regularly, you just load your preset and go. No need to remember all your settings from last time.</p>
+                    <h3>Implementation &amp; Technical Considerations</h3>
+                    <p>Image tools compress, resize — including two named passport presets (India and Netherlands, both 35×45mm) — and convert between five output formats (original, JPEG, PNG, WEBP, TIFF). File tools batch-rename with a custom pattern, prefix, suffix, zero-padded auto-numbering, regex find-and-replace, and date-based naming from either the current date or a file's own modified time. Both tabs hand their batch off to a <code>QThread</code> before starting, so a run of a few hundred files reports live progress instead of freezing the window until it's done.</p>
+                    <p>Presets and settings are written to whichever directory each OS actually expects: <code>Library/Application Support</code> on Mac, <code>%APPDATA%</code> on Windows, <code>~/.config</code> on Linux — one function picks the right one so settings survive an app update rather than living next to a binary that gets replaced.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>Testing &amp; Reliability</h3>
+                    <p>There is no automated test suite. Reliability here comes from keeping the heavy work off the UI thread and giving batch jobs a visible progress bar and a stop control, rather than from a suite of assertions — a desktop tool with one user is verified by running it against a real folder of files.</p>
                 </div>
             </div>
 
-            <!-- Write-up continued -->
+            <!-- Decisions -->
+            <div class="write-up-card">
+                <div class="write-up-heading">Decisions Worth Explaining</div>
+                <div class="table-scroll">
+                    <table class="decision-table">
+                        <thead>
+                            <tr>
+                                <th>Decision</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Run batch jobs on a <code>QThread</code>, not the main thread</td>
+                                <td>Pillow processing hundreds of images blocks whatever thread it runs on. Without this the window would freeze and look hung during a real batch.</td>
+                            </tr>
+                            <tr>
+                                <td>Store presets in each OS's own app-data folder</td>
+                                <td><code>Library/Application Support</code>, <code>%APPDATA%</code> and <code>~/.config</code> are where each platform expects settings to live and survive an update — not a file sitting next to the executable.</td>
+                            </tr>
+                            <tr>
+                                <td>Ship a PyInstaller onefile build, not a pip package</td>
+                                <td>The point was to hand someone a <code>.exe</code> or <code>.app</code> that runs with no Python installed, not to publish a library someone else has to set up.</td>
+                            </tr>
+                            <tr>
+                                <td>Two dependencies, not an imaging framework</td>
+                                <td>PySide6 for the UI and Pillow for image work cover everything the tool needs. Anything more is another version to pin and rebuild for.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Design -->
             <div class="write-up-card">
                 <div class="write-up-section">
-                    <h3>Technical Details & Cross-Platform Compatibility</h3>
-                    <p>Under the hood, it's all Python with PySide6 handling the UI and Pillow doing the heavy lifting for image processing. The app uses threaded workers for batch operations so the interface stays responsive even when you're processing hundreds of files—you can see progress in real-time and even stop mid-process if needed. It saves presets and settings to your system's standard application directory (Library/Application Support on Mac, AppData on Windows, .config on Linux), so everything persists between sessions. The code is structured pretty cleanly with separate modules for image utilities, file utilities, and preset management, which makes it easy to extend if I want to add more features later. And because I used PyInstaller, you can build it into a standalone .app for Mac or .exe for Windows—no need to have Python installed or deal with dependencies. It's just a tool that works, and that's exactly what I wanted to build.</p>
+                    <h3>Design Approach</h3>
+                    <p>The interface follows the same dark, tokenised system as the rest of the site: flat surfaces, hairline borders between panels, and progress feedback that reports state rather than decorating the window while it works.</p>
                 </div>
             </div>
 

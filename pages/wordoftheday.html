@@ -72,7 +72,7 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 48px;
+            margin-bottom: 24px;
         }
 
         .demo-tag {
@@ -83,6 +83,35 @@
             background: var(--accent-dim);
             border: 1px solid var(--accent-border);
             color: var(--accent);
+        }
+
+        /* External links */
+        .demo-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surf);
+            color: var(--body);
+            text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .demo-link:hover {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* Write-up card */
@@ -127,7 +156,87 @@
             font-weight: 300;
             line-height: 1.85;
             color: var(--body);
-            margin: 0;
+            margin: 0 0 14px;
+        }
+
+        .write-up-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stat strip */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-cell {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 24px;
+        }
+
+        .stat-value {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: -0.03em;
+            color: var(--head);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* Decision table */
+        .decision-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .decision-table th {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: left;
+            padding: 0 16px 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .decision-table td {
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--body);
+            padding: 16px 16px 16px 0;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .decision-table tr:last-child td {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .decision-table td:first-child {
+            color: var(--head);
+            font-weight: 500;
+            width: 34%;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
         }
 
         /* Screenshot card */
@@ -188,13 +297,46 @@
                 <span class="demo-tag">SMS Automation</span>
             </div>
 
+            <div class="demo-links">
+                <a class="demo-link" href="https://github.com/TechCabana/Word-Of-The-Day" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Source Code
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-row">
+                <div class="stat-cell">
+                    <div class="stat-value">134</div>
+                    <div class="stat-label">Lines, one script</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">1,600</div>
+                    <div class="stat-label">Character SMS hard cap</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Fetch failure modes logged by name</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Silent failures — every path texts you</div>
+                </div>
+            </div>
+
             <!-- Write-up -->
             <div class="write-up-card">
                 <div class="write-up-heading">About This Project</div>
 
                 <div class="write-up-section">
-                    <h3>Purpose & Motivation</h3>
-                    <p>This project started with a pretty straightforward goal: I wanted to learn new words without having to remember to check a website or download another app that would clutter my phone. The solution? A simple Python script that grabs the word of the day from Wordnik and shoots it straight to my phone via SMS using Twilio. It's low-cost, lightweight, and once you set it up, it just works in the background — no daily effort required.</p>
+                    <h3>Purpose &amp; Motivation</h3>
+                    <p>I wanted to learn new words without remembering to check a website or install another app. The fix: a Python script that fetches the word of the day from Wordnik and texts it to my phone via Twilio. Set up once, it runs in the background with no daily effort.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>The Constraint That Shaped Everything</h3>
+                    <p>Twilio charges per message past its free trial and caps a single SMS at 1,600 characters — a limit the script's own formatting comment names directly. Both facts push the same way: the message has to fit, and it has to actually send, every single day, with nobody watching it run.</p>
+                    <p>That is why the definition is never touched but the example gets truncated first when a message runs long, and why a total failure to fetch the word still sends an SMS — just one that says so, rather than staying silent.</p>
                 </div>
             </div>
 
@@ -213,8 +355,14 @@
             <!-- Write-up continued -->
             <div class="write-up-card">
                 <div class="write-up-section">
-                    <h3>Implementation & Technical Considerations</h3>
-                    <p>Getting this working was all about making sure it was reliable and easy to debug. The script pulls data from Wordnik's API, formats it into a text-friendly message, and sends it through Twilio. But here's the thing — I knew I'd need to troubleshoot eventually, so I built in comprehensive logging from the start. Every time the script runs, it logs whether it succeeded or failed, what the APIs returned, and whether the SMS actually went through. This way, if something breaks — maybe I hit an API limit or there's a network hiccup — I can check the logs and know exactly what went wrong. It's basically like having a paper trail that tells you the full story every single day.</p>
+                    <h3>Implementation &amp; Technical Considerations</h3>
+                    <p>The fetch, format and send steps are three plain functions, each wrapped in its own <code>try/except</code>. The fetch step separates a timeout from a general request failure from an unexpected error, and logs each one under a different message — so <code>word_of_day.log</code> says which of the three happened, not just that something went wrong. Task Scheduler runs this with nobody watching the terminal, so the log file is the only record of whether today's message went out at all.</p>
+                    <p>Message construction cleans stray <code>&lt;i&gt;</code>/<code>&lt;b&gt;</code> tags out of the API response before building the SMS, then checks the assembled length against the 1,600-character cap with headroom to spare: past 1,500 characters, the example is trimmed to fit and the definition is left untouched.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>Testing &amp; Reliability</h3>
+                    <p>There is no automated test suite; a script that runs once a day is verified by watching it run and reading the log it leaves behind. Reliability comes from the failure path rather than from tests: if the word can't be fetched at all, the script still calls <code>send_sms()</code> with an error message instead of exiting quietly, so a broken morning looks like a text saying so — not like nothing arriving and no way to tell why.</p>
                 </div>
             </div>
 
@@ -230,11 +378,36 @@
                 <p class="screenshot-caption">Structured logs showing API calls, response codes, and delivery confirmation</p>
             </div>
 
-            <!-- Write-up continued -->
+            <!-- Decisions -->
             <div class="write-up-card">
-                <div class="write-up-section">
-                    <h3>Flexibility & Scheduling Options</h3>
-                    <p>One of my favourite parts about this project is how flexible it is. You can set it up with Windows Task Scheduler to run automatically every morning at whatever time works for you, or just fire it up manually from VS Code when you feel like testing it out. The whole setup is pretty minimal — you just need API keys from Wordnik and Twilio, plus your phone number, and you're good to go. It's also incredibly cheap to run since Twilio's free tier handles way more than one message per day, and Wordnik's API limits are generous. At the end of the day, it's a small, focused tool that does exactly what it needs to do without any unnecessary complexity.</p>
+                <div class="write-up-heading">Decisions Worth Explaining</div>
+                <div class="table-scroll">
+                    <table class="decision-table">
+                        <thead>
+                            <tr>
+                                <th>Decision</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Log every run to a file, not just the console</td>
+                                <td>Task Scheduler runs this headless. <code>word_of_day.log</code> is the only way to know, after the fact, whether today's message went out.</td>
+                            </tr>
+                            <tr>
+                                <td>Send an SMS on failure instead of failing silently</td>
+                                <td>A daily text that quietly stops is indistinguishable from nothing happening. A failure text is what actually gets noticed and checked.</td>
+                            </tr>
+                            <tr>
+                                <td>Truncate the example, never the definition</td>
+                                <td>The definition is the part that teaches the word. The example is illustrative and can lose its ending gracefully; the definition can't.</td>
+                            </tr>
+                            <tr>
+                                <td>Task Scheduler, not a hosted job</td>
+                                <td>An always-on server for one SMS a day would cost more than the SMS itself. Task Scheduler already ships with Windows.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

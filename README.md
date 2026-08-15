@@ -247,10 +247,10 @@ Bear in mind that merging to `main` publishes the site immediately.
 
 ## Licence
 
-**No licence has been granted yet.** There is no `LICENSE` file in this repository, so default
-copyright applies: all rights reserved, and the code may not be reused without permission.
-Choosing a licence is an open decision tracked on the board — this section will be replaced
-once it is made.
+**All rights reserved, by deliberate choice.** There is no `LICENSE` file in this repository,
+so default copyright applies: the code may not be reused without permission. This is a personal
+portfolio nobody should be forking, so the owner chose to leave it unlicensed rather than adopt
+a permissive or copyleft licence — decided 2026-08-15, tracked on the board.
 
 ### Credits and third-party terms
 
