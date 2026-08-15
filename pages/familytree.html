@@ -72,7 +72,7 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 48px;
+            margin-bottom: 24px;
         }
 
         .demo-tag {
@@ -83,6 +83,35 @@
             background: var(--accent-dim);
             border: 1px solid var(--accent-border);
             color: var(--accent);
+        }
+
+        /* External links */
+        .demo-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surf);
+            color: var(--body);
+            text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .demo-link:hover {
+            border-color: var(--accent-border);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* Write-up card */
@@ -127,7 +156,87 @@
             font-weight: 300;
             line-height: 1.85;
             color: var(--body);
-            margin: 0;
+            margin: 0 0 14px;
+        }
+
+        .write-up-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stat strip */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-cell {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 24px;
+        }
+
+        .stat-value {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: -0.03em;
+            color: var(--head);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* Decision table */
+        .decision-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .decision-table th {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: left;
+            padding: 0 16px 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .decision-table td {
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--body);
+            padding: 16px 16px 16px 0;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .decision-table tr:last-child td {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .decision-table td:first-child {
+            color: var(--head);
+            font-weight: 500;
+            width: 34%;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
         }
 
         /* Demo embed card */
@@ -207,23 +316,50 @@
                 <span class="demo-tag">SVG</span>
             </div>
 
+            <div class="demo-links">
+                <a class="demo-link" href="https://techcabana.github.io/TheFamilyTreeProject/" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Live Application
+                </a>
+                <a class="demo-link" href="https://github.com/TechCabana/TheFamilyTreeProject" target="_blank" rel="noopener">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    Source Code
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-row">
+                <div class="stat-cell">
+                    <div class="stat-value">1,044</div>
+                    <div class="stat-label">Lines of vanilla JS</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Export formats</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Filter dimensions</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Servers — it lives in localStorage</div>
+                </div>
+            </div>
+
             <!-- Write-up -->
             <div class="write-up-card">
                 <div class="write-up-heading">About This Project</div>
 
                 <div class="write-up-section">
-                    <h3>Project Goal</h3>
-                    <p>The main goal was to create something more dynamic than your typical static chart. We wanted a fully interactive canvas where you could visually build out your family history, and importantly, have it all save right in your browser. No accounts, no cloud saves — just a seamless experience where you could pick up right where you left off. The focus was really on making it a user-friendly, self-contained tool that felt both powerful and easy to manage.</p>
+                    <h3>Purpose &amp; Motivation</h3>
+                    <p>A family tree is usually either a static chart someone drew once, or a paid product that wants an account before it shows you anything. I wanted something in between: a canvas you could actually edit — add a member, draw a relationship, drag things around — that stayed entirely on the machine you opened it on.</p>
+                    <p>Nothing about it needed to be shared or synced. It needed to open, remember what you put in it last time, and get out of the way.</p>
                 </div>
 
                 <div class="write-up-section">
-                    <h3>Features & Technical Hurdles</h3>
-                    <p>We ended up packing in a pretty robust feature set. You've got all the core functionality like adding, editing, and deleting family members and their relationships, plus the interactive canvas with pan and zoom. We also built out a whole suite of filters — by tags, roles, generation, and even that toggle for showing deceased members — and a full import/export system for everything from JSON to PNGs and CSVs. On the development side, a couple of things were pretty tricky. Keeping the UI perfectly in sync with the data was a constant focus; if you delete someone, you have to make sure not just their card vanishes, but all their connection lines do too. Getting the SVG coordinates right was a headache until we figured out the timing for the browser to render everything first.</p>
-                </div>
-
-                <div class="write-up-section">
-                    <h3>Development Process & AI Collaboration</h3>
-                    <p>From a project management standpoint, using an AI for development was fascinating. The biggest takeaway was how crucial clear instructions are. You really have to be specific with your prompts, because any gray area gets interpreted, and you might not get what you envisioned. We found that breaking down the work into smaller, specific features — like "add the deceased toggle" instead of "add all the filters" — worked best. Trying to do too much at once just led to confusing or incomplete results. But honestly, the speed was the game-changer. Being able to go from an idea to a working prototype in minutes was just incredible. It made the whole process feel less like a grind and more like a really fast, creative session.</p>
+                    <h3>The Constraint That Shaped Everything</h3>
+                    <p>No accounts, no cloud saves, no server the data ever passes through. That single decision is why the tree lives entirely in the browser's <code>localStorage</code>, under one key (<code>familyTreeData</code>), read back on load and rewritten on every edit. There is nothing to sign into and nothing to lose access to — but also nothing to fall back on if that one browser's storage is ever cleared, which is the trade-off a self-contained tool makes.</p>
                 </div>
             </div>
 
@@ -242,6 +378,57 @@
                     title="Live Demo — The Family Tree Project"
                     frameborder="0"
                 ></iframe>
+            </div>
+
+            <!-- Write-up continued -->
+            <div class="write-up-card">
+                <div class="write-up-section">
+                    <h3>Implementation &amp; Technical Considerations</h3>
+                    <p>Adding, editing and deleting members and relationships all mutate one in-memory object, which is deep-cloned from the seed data on first load and then persisted to <code>localStorage</code> after every change. Filtering runs across seven dimensions at once — tag, side, generation, role, relationship link, status, and a toggle for deceased members — so the tree can be narrowed to, say, one side of the family at a generation, without touching the underlying data.</p>
+                    <p>The connection lines between cards are SVG, redrawn by reading each card's <code>getBoundingClientRect()</code> after every layout change. Read those coordinates the instant the DOM updates and they come back stale — the browser hasn't finished laying the cards out yet, so lines snap to the wrong position. The fix is a short <code>setTimeout</code> before redrawing: 50ms after a filter changes, 300ms after a member is added or removed, long enough for layout to actually settle first.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>Testing &amp; Reliability</h3>
+                    <p>There is no automated test suite — this is a personal tool with one user testing it by using it. The import path is the one place that gets a runtime check regardless: an imported JSON file is only accepted if it has both a <code>members</code> and a <code>connections</code> array, so a malformed file fails loudly rather than silently half-loading.</p>
+                </div>
+            </div>
+
+            <!-- Decisions -->
+            <div class="write-up-card">
+                <div class="write-up-heading">Decisions Worth Explaining</div>
+                <div class="table-scroll">
+                    <table class="decision-table">
+                        <thead>
+                            <tr>
+                                <th>Decision</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Save to <code>localStorage</code>, not a backend</td>
+                                <td>No accounts and no server ever seeing the data was the point. A database and an API would have solved a problem this tool doesn't have.</td>
+                            </tr>
+                            <tr>
+                                <td>Redraw connection lines on a short delay, not immediately</td>
+                                <td>Reading card positions before the browser finishes layout returns stale coordinates, so lines snap to the wrong place. Waiting one paint cycle first fixes it.</td>
+                            </tr>
+                            <tr>
+                                <td>Five export formats, not just JSON</td>
+                                <td>The tree gets looked at as much as it gets edited. PNG, PDF and SVG are for printing or sharing it; CSV is for pulling the raw data into a spreadsheet. Only JSON round-trips back in.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Design -->
+            <div class="write-up-card">
+                <div class="write-up-section">
+                    <h3>Design Approach</h3>
+                    <p>The canvas follows the same dark, tokenised system as the rest of the site — flat surfaces, hairline borders, one accent colour reserved for interaction. Tags carry colour because that colour is the only thing distinguishing them at a glance across dozens of cards; everything else on a card is text.</p>
+                </div>
             </div>
 
         </div>
