@@ -81,7 +81,7 @@ value anywhere else.
 | `--bg` | `#080d12` | page ground |
 | `--surf` / `--surf2` | `#0d1520` / `#111d2e` | layered surfaces |
 | `--accent` | `#06b6d4` | the single interaction accent |
-| `--head` / `--body` / `--muted` | `#f0f9ff` / `#cbd5e1` / `#475569` | type scale |
+| `--head` / `--body` / `--muted` | `#f0f9ff` / `#cbd5e1` / `#94a3b8` | type scale |
 | `--border` | `rgba(255,255,255,0.06)` | hairline separation |
 
 Type: **Bricolage Grotesque** for headings, **Inter** for body, **JetBrains Mono** for
