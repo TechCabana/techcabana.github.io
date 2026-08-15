@@ -22,7 +22,7 @@
     --accent-ring:   rgba(6, 182, 212, 0.08);
     --head:          #f0f9ff;
     --body:          #cbd5e1;
-    --muted:         #475569;
+    --muted:         #94a3b8;
     --ink-dim:       rgba(255, 255, 255, 0.6);
     --ink-faint:     rgba(255, 255, 255, 0.35);
     --border:        rgba(255, 255, 255, 0.06);
@@ -438,6 +438,8 @@ section {
     text-transform: uppercase;
 }
 
+/* Decorative divider, not text - WCAG's contrast minimums don't apply to it.
+   Left on --muted deliberately at 0.4 opacity so it reads as a hairline, not a rule. */
 .scroll-line {
     width: 28px;
     height: 1px;
@@ -1271,6 +1273,8 @@ section {
     resize: none;
 }
 
+/* Placeholder hint text, not body copy - WCAG doesn't hold it to the 4.5:1 minimum,
+   but now that --muted itself clears AA there's no need for a dimmer token here. */
 .form-field input::placeholder,
 .form-field textarea::placeholder {
     color: var(--muted);
@@ -1656,5 +1660,33 @@ section {
 
     .about-stats {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    .fade-up {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    .modal-overlay,
+    .portfolio-toast {
+        transition-duration: 0.01ms !important;
+    }
+
+    /* Hover/state transforms that were missed by the first pass: project cards
+       lifting, the arrow icon nudging, the send button lifting, the social-link
+       arrow nudging, and skill tags scaling out on filter. Same near-zero-duration
+       technique - the end state still applies, it just doesn't visibly move there. */
+    .btn,
+    .project-card,
+    .proj-arrow-btn,
+    .btn-send,
+    .social-link-arrow,
+    .skill-tag {
+        transition-duration: 0.01ms !important;
     }
 }
