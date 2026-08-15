@@ -1658,3 +1658,18 @@ section {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    .fade-up {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    .modal-overlay,
+    .portfolio-toast {
+        transition-duration: 0.01ms !important;
+    }
+}

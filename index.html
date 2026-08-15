@@ -734,6 +734,10 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // A visitor who asked for less motion still gets the particle field, just
+        // static - no drifting movement, no pulsing opacity.
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         particlesJS('particles-js', {
             particles: {
                 number: { value: 90, density: { enable: true, value_area: 800 } },
@@ -742,7 +746,7 @@
                 opacity: {
                     value: 0.5,
                     random: true,
-                    anim: { enable: true, speed: 0.6, opacity_min: 0.15, sync: false }
+                    anim: { enable: !prefersReducedMotion, speed: 0.6, opacity_min: 0.15, sync: false }
                 },
                 size: {
                     value: 2.5,
@@ -757,7 +761,7 @@
                     width: 1
                 },
                 move: {
-                    enable: true,
+                    enable: !prefersReducedMotion,
                     speed: 0.6,
                     direction: 'none',
                     random: true,
