@@ -46,7 +46,9 @@ Sections in `index.html`, in order: `#home` (hero with particles canvas), `#abou
 **No CI, no tests, no LICENSE file, no `.gitignore` beyond what is listed here.** GitHub
 reports the licence as `NOASSERTION`. The licence question was decided 2026-08-15: leave the
 repository unlicensed (all rights reserved) rather than add MIT or GPL-3.0 — this is a personal
-portfolio nobody should be forking. The decision is recorded in the README's Licence section.
+portfolio nobody should be forking. This file is the only record of that decision — the
+README was cut back to a title, badges, a live link and an overview, so it no longer carries
+a Licence section or the third-party credits that used to sit under it.
 
 Two branches survive on the remote from earlier work: `AddSkillsFiltering` and
 `ChangeInCSS`. Both are merged; neither is active.
