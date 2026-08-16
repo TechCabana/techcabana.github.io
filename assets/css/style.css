@@ -1052,16 +1052,23 @@ section {
     margin-bottom: 16px;
 }
 
+/* Four columns inside the 1100px container leave each card body about 206px
+   wide, which is not enough for the tag row and the arrow button side by side.
+   Laid out that way the tags wrapped into the button and left it floating
+   against a two-row block. The tag list takes the whole row instead and the
+   button sits beneath it, so the footer reads the same at every card width. */
 .project-footer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
     padding-top: 14px;
     border-top: 1px solid var(--border);
 }
 
 .project-tags {
     display: flex;
+    flex: 1 1 100%;
     gap: 5px;
     flex-wrap: wrap;
 }
@@ -1077,10 +1084,11 @@ section {
     letter-spacing: 0.02em;
 }
 
-/* Arrow button */
+/* Arrow button - the only clickable thing on a project card, so it carries a
+   36px target rather than the 30px it had while it was sharing the tag row. */
 .proj-arrow-btn {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: var(--accent-dim);
     border: 1px solid var(--accent-border);
@@ -1088,6 +1096,7 @@ section {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-left: auto;
     color: var(--accent);
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
