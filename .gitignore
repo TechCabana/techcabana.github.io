@@ -13,3 +13,9 @@ desktop.ini
 # Local tooling
 node_modules/
 *.log
+
+# Impeccable design context — local only, never published.
+# The repo is public and published straight from main, so these stay out of it.
+PRODUCT.md
+DESIGN.md
+.impeccable/
