@@ -52,6 +52,23 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --shadow-nav: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+    /* Translucent forms of --bg, so a change to --bg does not leave these
+       three drifting behind it */
+    --bg-scrim: rgba(8, 13, 18, 0.55);  /* project thumbnail overlay */
+    --bg-veil:  rgba(8, 13, 18, 0.92);  /* scrolled navbar */
+    --bg-panel: rgba(8, 13, 18, 0.98);  /* mobile menu panel */
+
+    /* Overlays and panel tints that are not part of the shadow scale */
+    --panel-tint: rgba(0, 0, 0, 0.15);   /* experience card header row */
+    --modal-scrim: rgba(0, 0, 0, 0.85);  /* demo modal backdrop */
+
+    /* Additional accent alphas beyond --accent-dim/-border/-ring */
+    --accent-border-strong: rgba(6, 182, 212, 0.4);  /* current-role card, hover */
+    --accent-ring-faint:    rgba(6, 182, 212, 0.03); /* bento header gradient, far stop */
+
+    --promo-faint: rgba(34, 197, 94, 0.06); /* growth-label chip background */
 
     /* Animation */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -142,11 +159,11 @@ section {
 }
 
 #navbar.scrolled {
-    background: rgba(8, 13, 18, 0.92);
+    background: var(--bg-veil);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom-color: var(--border);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-nav);
 }
 
 .nav-container {
@@ -541,7 +558,7 @@ section {
 }
 
 .exp-card.current:hover {
-    border-color: rgba(6, 182, 212, 0.4);
+    border-color: var(--accent-border-strong);
 }
 
 /* Current top accent line */
@@ -561,7 +578,7 @@ section {
     align-items: center;
     gap: 18px;
     border-bottom: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.15);
+    background: var(--panel-tint);
     position: relative;
 }
 
@@ -785,7 +802,7 @@ section {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     white-space: nowrap;
-    background: rgba(34, 197, 94, 0.06);
+    background: var(--promo-faint);
     border: 1px solid var(--promo-border);
     border-radius: 20px;
     padding: 3px 10px;
@@ -885,7 +902,7 @@ section {
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.03) 100%);
+    background: linear-gradient(135deg, var(--accent-ring) 0%, var(--accent-ring-faint) 100%);
     border-bottom: 1px solid var(--border);
 }
 
@@ -1011,7 +1028,7 @@ section {
 .project-thumb-inner {
     position: absolute;
     inset: 0;
-    background: rgba(8, 13, 18, 0.55);
+    background: var(--bg-scrim);
     display: flex;
     align-items: flex-end;
     padding: 14px;
@@ -1448,7 +1465,7 @@ section {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--modal-scrim);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1482,7 +1499,7 @@ section {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--border);
     border: 1px solid var(--border);
     border-radius: 50%;
     width: 32px;
@@ -1604,7 +1621,7 @@ section {
         top: 64px;
         left: 0;
         right: 0;
-        background: rgba(8, 13, 18, 0.98);
+        background: var(--bg-panel);
         backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 1.5rem 2rem;
