@@ -52,6 +52,10 @@
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    /* Not part of the scale above — a fixed value the scrolled navbar already
+       used, with its own shorter y-offset. Kept separate rather than forced
+       onto the sm/md/lg progression. */
     --shadow-nav: 0 4px 24px rgba(0, 0, 0, 0.4);
 
     /* Translucent forms of --bg, so a change to --bg does not leave these
