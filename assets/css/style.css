@@ -182,6 +182,8 @@ section {
 .nav-logo {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 800;
+    /* 24px is the documented Navigation logo size (DESIGN.md, Components >
+       Navigation), not part of the 6-step Hierarchy ramp — sanctioned. */
     font-size: 24px;
     letter-spacing: -0.02em;
     color: var(--head);
@@ -194,6 +196,8 @@ section {
 }
 
 .nav-links a {
+    /* 15px is the documented Navigation link size (DESIGN.md, Components >
+       Navigation) — sanctioned, not ramp drift. */
     font-size: 15px;
     font-weight: 500;
     color: var(--ink-dim);
@@ -208,10 +212,12 @@ section {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0;
+    width: 100%;
     height: 1px;
     background: var(--accent);
-    transition: width 0.3s var(--ease-out);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.18s var(--ease-out);
 }
 
 .nav-links a:hover,
@@ -221,7 +227,7 @@ section {
 
 .nav-links a:hover::after,
 .nav-links a.active::after {
-    width: 100%;
+    transform: scaleX(1);
 }
 
 /* Mobile menu button */
@@ -348,6 +354,8 @@ section {
 }
 
 .meta-label {
+    /* 11px / 0.12em is DESIGN.md's documented "label small" step for hero
+       meta items — sanctioned, not ramp drift. */
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -410,6 +418,8 @@ section {
     padding: 13px 20px;
     border-radius: 8px;
     font-family: 'Inter', sans-serif;
+    /* 13px uppercase / 0.07em is the documented Buttons spec (DESIGN.md,
+       Components > Buttons) — sanctioned, not ramp drift. */
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.07em;
@@ -543,7 +553,7 @@ section {
 .exp-card {
     background: var(--surf);
     border: 1px solid var(--border);
-    border-radius: 18px;
+    border-radius: 16px; /* snapped from 18px onto the Panel step, nearest radius value */
     overflow: hidden;
     margin-bottom: 12px;
     transition: border-color 0.25s;
@@ -589,7 +599,7 @@ section {
 .exp-logo {
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 14px; /* snapped from 12px onto the Data Card step, nearest radius value */
     background: var(--surf2);
     border: 1px solid var(--border);
     display: flex;
@@ -597,7 +607,7 @@ section {
     justify-content: center;
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 800;
-    font-size: 16px;
+    font-size: 17px; /* snapped from 16px onto the Body step, nearest ramp value */
     color: var(--head);
     flex-shrink: 0;
 }
@@ -605,6 +615,10 @@ section {
 .exp-company {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700;
+    /* Deliberate exception: 21px sits 4-11px from every documented ramp step
+       (Body 17 / Title 32) with no visually safe nearest step to snap onto —
+       this is the company-name sub-heading tier, a size the 6-step Hierarchy
+       ramp doesn't cover. Left as-is rather than forced onto Title. */
     font-size: 21px;
     letter-spacing: -0.02em;
     color: var(--head);
@@ -616,7 +630,7 @@ section {
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-    font-size: 13px;
+    font-size: 14px; /* snapped from 13px onto the Label step, nearest ramp value */
     color: var(--body);
 }
 
@@ -655,6 +669,8 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    /* 11px reuses DESIGN.md's documented "label small" step (see .meta-label)
+       for this uppercase status badge — sanctioned, not ramp drift. */
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -680,6 +696,8 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    /* 11px reuses DESIGN.md's documented "label small" step (see .meta-label)
+       for this uppercase status badge — sanctioned, not ramp drift. */
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -757,7 +775,7 @@ section {
 }
 
 .exp-bullets li {
-    font-size: 15px;
+    font-size: 14px; /* snapped from 15px onto the Label step, nearest ramp value */
     font-weight: 300;
     line-height: 1.75;
     color: var(--body);
@@ -771,16 +789,19 @@ section {
     left: 0;
     color: var(--accent);
     opacity: 0.5;
-    font-size: 13px;
+    font-size: 14px; /* snapped from 13px onto the Label step, nearest ramp value */
     top: 3px;
 }
 
 .metric {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 12px; /* snapped from 13px onto the Mono step, nearest ramp value */
     font-weight: 500;
     color: var(--accent);
     background: var(--accent-dim);
+    /* Deliberate exception: 4px is 4px shy of the Control step (8px), which
+       would read as a pill on an inline badge this small (~20px tall). Kept
+       as its own micro-tag radius, matching .proj-tag below. */
     border-radius: 4px;
     padding: 1px 5px;
 }
@@ -800,6 +821,8 @@ section {
     display: flex;
     align-items: center;
     gap: 5px;
+    /* 11px reuses DESIGN.md's documented "label small" step (see .meta-label)
+       for this uppercase status badge — sanctioned, not ramp drift. */
     font-size: 11px;
     font-weight: 600;
     color: var(--promo);
@@ -846,6 +869,8 @@ section {
     align-items: center;
     gap: 6px;
     font-family: 'Inter', sans-serif;
+    /* 13px is the documented Filter Chip spec (DESIGN.md, Components > Chips)
+       — sanctioned, not ramp drift. */
     font-size: 13px;
     font-weight: 500;
     color: var(--body);
@@ -913,14 +938,14 @@ section {
 .bento-cat {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 14px; /* snapped from 15px onto the Label step, nearest ramp value */
     letter-spacing: -0.01em;
     color: var(--head);
 }
 
 .bento-count {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 12px; /* snapped from 11px onto the Mono step, nearest ramp value */
     color: var(--body);
     letter-spacing: 0.04em;
 }
@@ -937,12 +962,12 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 13px;
+    font-size: 14px; /* snapped from 13px onto the Label step, nearest ramp value */
     font-weight: 400;
     color: var(--body);
     background: var(--tint);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px; /* snapped from 6px onto the Control step, nearest radius value */
     padding: 4px 10px;
     transition: all 0.2s ease;
     white-space: nowrap;
@@ -1040,7 +1065,7 @@ section {
 
 .project-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 12px; /* snapped from 13px onto the Mono step, nearest ramp value */
     font-weight: 500;
     color: var(--ink-faint);
     letter-spacing: 0.04em;
@@ -1057,6 +1082,9 @@ section {
 .project-title {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700;
+    /* Deliberate exception: 21px sits 4-11px from every documented ramp step
+       (Body 17 / Title 32), same sub-heading tier as .exp-company. No safe
+       nearest step to snap onto without a real visual jump. */
     font-size: 21px;
     letter-spacing: -0.01em;
     color: var(--head);
@@ -1098,6 +1126,8 @@ section {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     padding: 3px 8px;
+    /* Deliberate exception: matches .metric's 4px micro-tag radius — the
+       Control step (8px) would read as a pill on a tag this small. */
     border-radius: 4px;
     background: var(--accent-dim);
     border: 1px solid var(--accent-border);
@@ -1163,12 +1193,15 @@ section {
 .edu-degree-initial {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 800;
+    /* Deliberate exception: 21px sits 4-11px from every documented ramp step,
+       same sub-heading tier as .exp-company / .project-title. This is a
+       single-letter avatar glyph, not running text. */
     font-size: 21px;
     letter-spacing: -0.02em;
     color: var(--accent);
     background: var(--accent-dim);
     border: 1px solid var(--accent-border);
-    border-radius: 10px;
+    border-radius: 8px; /* snapped from 10px onto the Control step, nearest radius value */
     padding: 10px 14px;
     flex-shrink: 0;
 }
@@ -1176,14 +1209,14 @@ section {
 .edu-degree {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 17px; /* snapped from 18px onto the Body step, nearest ramp value */
     letter-spacing: -0.01em;
     color: var(--head);
     margin-bottom: 5px;
 }
 
 .edu-institution {
-    font-size: 15px;
+    font-size: 14px; /* snapped from 15px onto the Label step, nearest ramp value */
     font-weight: 400;
     color: var(--body);
     margin-bottom: 4px;
@@ -1238,6 +1271,11 @@ section {
 
 .contact-statement {
     font-weight: 800;
+    /* Deliberate exception: this fluid heading's 28-44px bounds sit 4-12px
+       from the nearest ramp steps (Title 32 / Headline 40-60) in both
+       directions. It's a bespoke size for the one-off contact CTA line,
+       deliberately smaller than a section Headline — snapping either bound
+       onto Title or Headline would be a real visual change on the live page. */
     font-size: clamp(28px, 4vw, 44px);
     letter-spacing: -0.03em;
     color: var(--head);
@@ -1251,7 +1289,7 @@ section {
 }
 
 .contact-sub {
-    font-size: 16px;
+    font-size: 17px; /* snapped from 16px onto the Body step, nearest ramp value */
     font-weight: 300;
     color: var(--body);
     line-height: 1.7;
@@ -1290,6 +1328,8 @@ section {
 .form-field input,
 .form-field textarea {
     font-family: 'Inter', sans-serif;
+    /* 15px is the documented Inputs / Fields spec (DESIGN.md, Components >
+       Inputs / Fields, "Inter 400 at 15px") — sanctioned, not ramp drift. */
     font-size: 15px;
     font-weight: 400;
     color: var(--head);
@@ -1326,6 +1366,8 @@ section {
     background: var(--accent);
     color: var(--bg);
     font-family: 'Inter', sans-serif;
+    /* 13px is the documented Buttons spec (DESIGN.md, Components > Buttons
+       > Send) at the heavier Send weight — sanctioned, not ramp drift. */
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -1364,7 +1406,7 @@ section {
     padding: 16px 18px;
     background: var(--surf);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px; /* snapped from 10px onto the Control step, nearest radius value */
     text-decoration: none;
     transition: border-color 0.2s ease;
     cursor: pointer;
@@ -1401,7 +1443,7 @@ section {
 }
 
 .social-link-handle {
-    font-size: 15px;
+    font-size: 14px; /* snapped from 15px onto the Label step, nearest ramp value */
     font-weight: 500;
     color: var(--head);
 }
@@ -1511,6 +1553,9 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Deliberate exception: this is the "x" close-icon glyph sized to
+       visually balance the 32px circular button, not running text — no
+       ramp step applies to an icon glyph. */
     font-size: 1.4rem;
     line-height: 1;
     color: var(--body);
@@ -1545,9 +1590,9 @@ section {
     right: 2rem;
     max-width: 360px;
     padding: 14px 22px;
-    border-radius: 10px;
+    border-radius: 8px; /* snapped from 10px onto the Control step, nearest radius value */
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
+    font-size: 14px; /* snapped from 13px onto the Label step, nearest ramp value */
     font-weight: 500;
     line-height: 1.5;
     color: var(--head);
@@ -1716,7 +1761,8 @@ section {
     .proj-arrow-btn,
     .btn-send,
     .social-link-arrow,
-    .skill-tag {
+    .skill-tag,
+    .nav-links a::after {
         transition-duration: 0.01ms !important;
     }
 }
