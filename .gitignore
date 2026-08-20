@@ -14,8 +14,9 @@ desktop.ini
 node_modules/
 *.log
 
-# Impeccable design context — local only, never published.
+# Planning / working-agreement docs — local only, never published.
 # The repo is public and published straight from main, so these stay out of it.
+CLAUDE.md
 PRODUCT.md
 DESIGN.md
 .impeccable/
