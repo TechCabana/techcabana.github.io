@@ -10,8 +10,10 @@
 [![Last commit](https://img.shields.io/github/last-commit/TechCabana/techcabana.github.io?style=flat)](https://github.com/TechCabana/techcabana.github.io/commits/main)
 
 [Live site](https://techcabana.github.io/) ·
+[Overview](#overview) ·
 [Installation](#installation) ·
-[Architecture](#architecture)
+[Architecture](#architecture) ·
+[Contributing & Licence](#contributing--licence)
 
 </div>
 
