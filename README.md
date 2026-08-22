@@ -197,10 +197,9 @@ requests are unlikely to be the right path for a site like this one.
 
 ### Licence
 
-**TODO(owner):** there is no `LICENSE` file in this repository. Without one, the default
-under copyright law is all rights reserved: nobody else may copy, modify or redistribute
-this code. The License badge above reflects this and will show `NOASSERTION` rather than a
-named licence until one is added, if ever.
+There is no `LICENSE` file in this repository. Without one, the default under copyright law
+is all rights reserved: nobody else may copy, modify or redistribute this code. The License
+badge above reflects this and shows `NOASSERTION` rather than a named licence.
 
 ### Credits and third-party terms
 
