@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utility Tool — Ankhit Sharma</title>
+    <title>Safekeep — Ankhit Sharma</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -287,14 +287,14 @@
             </a>
 
             <div class="demo-page-eyebrow">Project Deep Dive</div>
-            <h1 class="demo-page-title">Utility Tool: Swiss Army Edition</h1>
+            <h1 class="demo-page-title">Safekeep: Backup That Checks Its Own Work</h1>
 
             <div class="demo-tags">
                 <span class="demo-tag">Python</span>
                 <span class="demo-tag">PySide6</span>
-                <span class="demo-tag">Pillow</span>
+                <span class="demo-tag">SHA-256</span>
+                <span class="demo-tag">Windows Task Scheduler</span>
                 <span class="demo-tag">PyInstaller</span>
-                <span class="demo-tag">Cross-Platform</span>
             </div>
 
             <div class="demo-links">
@@ -307,20 +307,20 @@
             <!-- Stats -->
             <div class="stat-row">
                 <div class="stat-cell">
-                    <div class="stat-value">843</div>
-                    <div class="stat-label">Lines across main.py + 4 tabs</div>
+                    <div class="stat-value">290</div>
+                    <div class="stat-label">Automated tests</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value">5</div>
-                    <div class="stat-label">Image output formats</div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Runtime dependency — PySide6</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value">2</div>
-                    <div class="stat-label">Batch jobs threaded off the UI</div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Failure causes named in plain words</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value">2</div>
-                    <div class="stat-label">Dependencies — PySide6 &amp; Pillow</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Network calls</div>
                 </div>
             </div>
 
@@ -330,12 +330,12 @@
 
                 <div class="write-up-section">
                     <h3>Purpose &amp; Motivation</h3>
-                    <p>I kept needing to batch-compress a folder of photos or rename a pile of files, and the options were paid services or tools that didn't quite fit. So I built a cross-platform desktop app that handles both image and file work in one place, organised into tabs so switching between them doesn't lose your place.</p>
+                    <p>I wanted one tool that copies my folders to another drive on a schedule and, more importantly, can show that the copy is good. It started as a multi-tool desktop app: batch image processing, file renaming, disk cleanup. I cut it back to a single job, backup, because backup is the one place where "it looks fine" can cost you your files.</p>
                 </div>
 
                 <div class="write-up-section">
                     <h3>The Constraint That Shaped Everything</h3>
-                    <p>It had to run on someone else's machine with no Python installed, and it had to stay responsive while it worked through hundreds of files. Both come from the same decision: build with PyInstaller's <code>--onefile --windowed</code> mode into a standalone <code>.exe</code> or <code>.app</code>, and run every batch job on a <code>QThread</code> rather than the main thread — a window that freezes mid-batch looks broken even when it isn't.</p>
+                    <p>A backup tool has one rule: a failure must never cost you the last good copy. Every design choice below follows from it. A backup that reports success has to be checked, the old versions are the only thing deleted so that step comes last, and the settings that say what to back up cannot be allowed to vanish because one write went wrong.</p>
                 </div>
             </div>
 
@@ -344,24 +344,31 @@
                 <div class="screenshot-card-label">Application Interface</div>
                 <img
                     class="screenshot-img"
-                    src="../assets/images/utilitytool.png"
-                    alt="Utility Tool Interface Screenshot"
+                    src="../assets/images/safekeep.png"
+                    alt="Safekeep's Backup screen in its dark theme. Two backup jobs are listed: Documents, scheduled daily with its last run marked OK, and Pictures, scheduled weekly and never run. Below them, a Restore table shows that three files have changed since the last Documents backup."
                     loading="lazy"
                 >
-                <p class="screenshot-caption">Modern dark-themed interface with sidebar navigation</p>
+                <p class="screenshot-caption">The Backup screen with two sample jobs. Sample folders, not real data.</p>
             </div>
 
             <!-- Write-up continued -->
             <div class="write-up-card">
                 <div class="write-up-section">
                     <h3>Implementation &amp; Technical Considerations</h3>
-                    <p>Image tools compress, resize — including two named passport presets (India and Netherlands, both 35×45mm) — and convert between five output formats (original, JPEG, PNG, WEBP, TIFF). File tools batch-rename with a custom pattern, prefix, suffix, zero-padded auto-numbering, regex find-and-replace, and date-based naming from either the current date or a file's own modified time. Both tabs hand their batch off to a <code>QThread</code> before starting, so a run of a few hundred files reports live progress instead of freezing the window until it's done.</p>
-                    <p>Presets and settings are written to whichever directory each OS actually expects: <code>Library/Application Support</code> on Mac, <code>%APPDATA%</code> on Windows, <code>~/.config</code> on Linux — one function picks the right one so settings survive an app update rather than living next to a binary that gets replaced.</p>
+                    <p>A backup job points a source folder at a target folder. Each run copies the source into a timestamped folder, hashing every file with SHA-256 as it is copied, and writes a manifest of those hashes next to it. The new folder is only renamed into place after every copied file has been re-read from the target and matched against its hash. Each version is an ordinary folder you can open without the app.</p>
+                    <p>Before anything is written, the run checks that the source is not empty, that the target is not inside the source, that there is room for the copy plus a margin, and that the target is the same drive as last time, so an unplugged drive cannot silently send a backup to a plain folder on C:. The jobs file is written atomically and keeps a backup copy, and a damaged file is reported with a restore option instead of being read as "no jobs". Schedules are handed to Windows Task Scheduler so backups run when the app is closed, and a restore copies into a new folder and never overwrites the live source.</p>
+                    <p>A run that fails keeps the last good backup. If the backup drive fills up or drops out, or the source disappears part-way through, the run stops with the real reason, promotes nothing and prunes nothing. A second run of the same job is refused while one is running, and leftovers from failed runs are swept after a week.</p>
                 </div>
 
                 <div class="write-up-section">
                     <h3>Testing &amp; Reliability</h3>
-                    <p>There is no automated test suite. Reliability here comes from keeping the heavy work off the UI thread and giving batch jobs a visible progress bar and a stop control, rather than from a suite of assertions — a desktop tool with one user is verified by running it against a real folder of files.</p>
+                    <p>There are 290 automated tests, and each safety rule was proven by making it fail first: corrupting one byte of a copy mid-run, truncating the jobs file mid-write, starting two backups in the same second. Independent reviews kept finding real bugs after the tests were green. The worst: with the backup drive full, or the source disappearing mid-copy, a run could report success and prune the only complete backup. I reproduced both, fixed them, and wrote tests that fail on the old code. A later review then found a copy of zero files that slipped through the same gap, and fixed that too.</p>
+                    <p>What is not covered: the interface has no automated tests (I drove the real app headless instead), and it has not been run on a Mac. Verification also costs time. On my machine a 300 MB backup of 3,000 files went from about 3.5 seconds to about 32, mostly Windows Defender scanning each freshly written file, so verification is now a per-job setting: full, a quick sampled check, or off.</p>
+                </div>
+
+                <div class="write-up-section">
+                    <h3>Not Built Yet</h3>
+                    <p>Encryption, a simple mode alongside an advanced one, catching up on a missed backup at login, copying paths longer than 260 characters on every Windows setting, and a scheduled re-check of old backups are planned and not in the app today. The macOS scheduler code is written and unit-tested but has never run on a Mac.</p>
                 </div>
             </div>
 
@@ -378,20 +385,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Run batch jobs on a <code>QThread</code>, not the main thread</td>
-                                <td>Pillow processing hundreds of images blocks whatever thread it runs on. Without this the window would freeze and look hung during a real batch.</td>
+                                <td>Verify by re-reading the copy, not by trusting the copy call</td>
+                                <td>A copy that returns without an error is not a copy that is right. Re-reading from the target catches faults on the write path. It cannot catch disk decay later, because the operating system may serve the read from its cache.</td>
                             </tr>
                             <tr>
-                                <td>Store presets in each OS's own app-data folder</td>
-                                <td><code>Library/Application Support</code>, <code>%APPDATA%</code> and <code>~/.config</code> are where each platform expects settings to live and survive an update — not a file sitting next to the executable.</td>
+                                <td>Never delete an old version until the new one is verified</td>
+                                <td>Pruning is the only destructive step, so it runs last, and it never removes the newest verified version.</td>
                             </tr>
                             <tr>
-                                <td>Ship a PyInstaller onefile build, not a pip package</td>
-                                <td>The point was to hand someone a <code>.exe</code> or <code>.app</code> that runs with no Python installed, not to publish a library someone else has to set up.</td>
+                                <td>Keep the manifest beside the version folder, not inside it</td>
+                                <td>The folder stays an ordinary copy you can open without the app, and the changes-since comparison and restore never see a stray file.</td>
                             </tr>
                             <tr>
-                                <td>Two dependencies, not an imaging framework</td>
-                                <td>PySide6 for the UI and Pillow for image work cover everything the tool needs. Anything more is another version to pin and rebuild for.</td>
+                                <td>Stay on Python and PySide6</td>
+                                <td>I measured it before deciding: hashing runs at about 289 MB/s, but reading and hashing a real folder ran at 6 to 34 MB/s because Windows Defender scans every file it opens. The work waits on the disk, not the language, and the tested engine was worth keeping.</td>
+                            </tr>
+                            <tr>
+                                <td>Hand the schedule to the operating system</td>
+                                <td>Windows Task Scheduler runs a backup even when the app is closed. When the app was renamed, new tasks were registered first and the old ones removed only after that succeeded.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -402,7 +413,7 @@
             <div class="write-up-card">
                 <div class="write-up-section">
                     <h3>Design Approach</h3>
-                    <p>The interface follows the same dark, tokenised system as the rest of the site: flat surfaces, hairline borders between panels, and progress feedback that reports state rather than decorating the window while it works.</p>
+                    <p>The app has a light and a dark theme built from one token file, so no colour is written anywhere else. Colour is used where it carries meaning: green for a good run, amber for files changed since the last backup, red for a failure. During a run the status line says what the app is doing, including "Verifying backup", rather than showing a bare progress bar.</p>
                 </div>
             </div>
 

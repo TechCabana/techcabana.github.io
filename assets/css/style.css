@@ -1041,7 +1041,7 @@ section {
 
 .project-thumb-1 { background-image: url('../images/familytree.png'); }
 .project-thumb-2 { background-image: url('../images/word-of-the-day_logo.png'); }
-.project-thumb-3 { background-image: url('../images/multi_tool.jpg'); }
+.project-thumb-3 { background-image: url('../images/safekeep-thumb.jpg'); background-position: left top; }
 
 /* Yu-Gi-Oh! thumb: three mirrored card arts laid out as a row */
 .project-thumb-4 {
