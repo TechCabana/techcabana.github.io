@@ -357,7 +357,7 @@
                     <h3>Implementation &amp; Technical Considerations</h3>
                     <p>A backup job points a source folder at a target folder. Each run copies the source into a timestamped folder, hashing every file with SHA-256 as it is copied, and writes a manifest of those hashes next to it. The new folder is only renamed into place after every copied file has been re-read from the target and matched against its hash. Each version is an ordinary folder you can open without the app.</p>
                     <p>Before anything is written, the run checks that the source is not empty, that the target is not inside the source, that there is room for the copy plus a margin, and that the target is the same drive as last time, so an unplugged drive cannot silently send a backup to a plain folder on C:. The jobs file is written atomically and keeps a backup copy, and a damaged file is reported with a restore option instead of being read as "no jobs". Schedules are handed to Windows Task Scheduler so backups run when the app is closed, and a restore copies into a new folder and never overwrites the live source.</p>
-                    <p>A run that fails keeps the last good backup. If the backup drive fills up or drops out, or the source disappears part-way through, the run stops with the real reason, promotes nothing and prunes nothing. A second run of the same job is refused while one is running, and leftovers from failed runs are swept after a week.</p>
+                    <p>A run that fails keeps the last good backup. If the backup drive fills up or drops out, or the source disappears part-way through, the run stops with the real reason, promotes nothing and prunes nothing. A second run of the same job is refused while one is running, and older leftovers from failed runs are swept after a week.</p>
                 </div>
 
                 <div class="write-up-section">
@@ -386,7 +386,7 @@
                         <tbody>
                             <tr>
                                 <td>Verify by re-reading the copy, not by trusting the copy call</td>
-                                <td>A copy that returns without an error is not a copy that is right. Re-reading from the target catches faults on the write path. It cannot catch disk decay later, because the operating system may serve the read from its cache.</td>
+                                <td>A copy that returns without an error is not a copy that is right. Re-reading from the target catches faults on the write path. It does not prove the bytes reached the disk, because the operating system may serve the read from its cache, and it cannot catch disk decay later.</td>
                             </tr>
                             <tr>
                                 <td>Never delete an old version until the new one is verified</td>
